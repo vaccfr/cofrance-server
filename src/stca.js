@@ -70,6 +70,10 @@ export var performStca = function(planes, callback) {
     
             if (!pair.bodyB.isSensor || !pair.bodyA.isSensor)
                 continue
+
+            // No need to alert if separate by level
+            if (Math.abs(pair.bodyA.altitude-pair.bodyB.altitude) > stcaParams.alertVerticalThreshold)
+                continue
     
             // Add to STCA list
             if (!detectedStca.includes(pair.bodyA.callsign))
@@ -86,9 +90,7 @@ export var performStca = function(planes, callback) {
     Matter.Events.on(runner, "afterTick", function(event){
         // Update the altitude of all the bodies according to vertical speed
         Matter.Composite.allBodies(engine.world).forEach((body) => {
-            body.altitude = body.orig_altitude + (body.vz/60)*(event.timestamp*0.001);
-            if (body.callsign == "BAW45NW")
-                console.log(body.altitude)
+            body.altitude = body.orig_altitude + (body.vz/60)*(event.timestamp/1000);
         });
         // Stop the simulation upon reaching time
         if (event.timestamp >= stcaParams.lookAhead*1000) {
