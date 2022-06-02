@@ -28,7 +28,7 @@ wss.broadcast = function broadcast(msg) {
 
 setInterval(() => {
     performStca(planeData, (data) => {
-        wss.broadcast(data);
+        wss.broadcast(JSON.stringify(data));
         console.debug(data);
     });
 }, 1000)

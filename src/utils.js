@@ -13,7 +13,7 @@ export const createVelocityVector = function(speed, bearing) {
 }
 
 export const stcaParams = {
-    alertDistanceUpper: nmToMeters(4.8),
+    alertDistanceUpper: nmToMeters(10),
     alertDistanceLower: nmToMeters(2.8),
     alertUpperLowerBoundary: 19500,
     lookAhead: 60*2,
