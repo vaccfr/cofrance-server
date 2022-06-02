@@ -16,7 +16,8 @@ export const stcaParams = {
     alertDistanceUpper: nmToMeters(4.8),
     alertDistanceLower: nmToMeters(2.8),
     alertUpperLowerBoundary: 19500,
-    lookAhead: 60*2
+    lookAhead: 30*2,
+    speedThreshold: 70
 }
 
 export const knotsToMs = function(speed) {

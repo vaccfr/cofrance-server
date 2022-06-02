@@ -33,7 +33,13 @@ test_data.pilots.forEach(function(element){
     // Project the targets to cartesian
     var geoTester = new LatLonNvectorSpherical(element.latitude, element.longitude);
     
-    //if (geoTester.isEnclosedBy(france_polygon)) {
+    //
+    // Filter out targets as much as possible 
+    //
+    var useTarget = element.groundspeed >= stcaParams.speedThreshold && 
+                    geoTester.isEnclosedBy(france_polygon);
+
+    if (useTarget) {
         var geo = new LatLon(element.latitude, element.longitude);
         var cart = geo.toCartesian();
 
@@ -45,13 +51,13 @@ test_data.pilots.forEach(function(element){
         airBody.callsign = element.callsign;
     
         arrOfAirplaneBodies.push(airBody);
-    //}
+    }
 });
 
 
 // create an engine
 var engine = Engine.create({gravity: {x: 0, y: 0}});
-engine.timing.timeScale = 1;
+engine.timing.timeScale = 10;
 
 Common.setDecomp(require('poly-decomp'))
 
