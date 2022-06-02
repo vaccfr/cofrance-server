@@ -28,7 +28,7 @@ wss.on('connection', function connection(ws) {
         planeData.push(d);
     });
 
-    log("Connection from "+ws._socket.address());
+    log("Connection from "+ws._socket.address().toString());
 });
 
 wss.on('close', function close() {
