@@ -41,6 +41,7 @@ export var performStca = function(planes, callback) {
             Matter.Body.setVelocity(airBody, createVelocityVector(knotsToMs(element.groundspeed), element.heading));
 
             airBody.callsign = element.callsign;
+            airBody.orig_altitude = element.altitude;
             airBody.altitude = element.altitude;
             airBody.vz = element.vz;
 
@@ -85,7 +86,9 @@ export var performStca = function(planes, callback) {
     Matter.Events.on(runner, "afterTick", function(event){
         // Update the altitude of all the bodies according to vertical speed
         Matter.Composite.allBodies(engine.world).forEach((body) => {
-            
+            body.altitude = body.orig_altitude + (body.vz/60)*(event.timestamp*0.001);
+            if (body.callsign == "BAW45NW")
+                console.log(body.altitude)
         });
         // Stop the simulation upon reaching time
         if (event.timestamp >= stcaParams.lookAhead*1000) {
