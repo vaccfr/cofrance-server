@@ -1,8 +1,10 @@
 {
+  "type": "module",
   "dependencies": {
     "geodesy": "^2.4.0",
     "matter-js": "^0.18.0",
-    "poly-decomp": "^0.3.0"
+    "poly-decomp": "^0.3.0",
+    "ws": "^8.7.0"
   },
   "devDependencies": {
     "webpack": "^5.72.1",
