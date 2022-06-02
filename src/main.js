@@ -1,5 +1,16 @@
 import { WebSocketServer } from 'ws';
 import { performStca } from './stca.js';
+import { RotatingFileStream } from 'rotating-file-stream';
+
+const stream = new RotatingFileStream(function(){return "runtime.log"}, {
+  size: "10M", // rotate every 10 MegaBytes written
+  interval: "1d", // rotate daily
+  compress: "gzip" // compress rotated files
+});
+
+const log = function(msg) {
+    stream.write("["+new Date().toString()+"] - " + msg);
+}
 
 var planeData = []
 
@@ -16,8 +27,11 @@ wss.on('connection', function connection(ws) {
         
         planeData.push(d);
     });
+    ws.on('close', function message(data) {
+        log("Client %s disconnected", ws._socket.address());
+    });
 
-    console.log("New connection from %s", ws._socket.address());
+    log("Connection from %s", ws._socket.address());
 });
 
 wss.broadcast = function broadcast(msg) {
@@ -29,6 +43,7 @@ wss.broadcast = function broadcast(msg) {
 setInterval(() => {
     performStca(planeData, (data) => {
         wss.broadcast(JSON.stringify(data));
-        console.debug(data);
+        if (data.length > 0)
+            log("Found conflicts: ", data.join());
     });
 }, 1000)
