@@ -9,7 +9,7 @@ const stream = new RotatingFileStream(function(){return "runtime.log"}, {
 });
 
 const log = function(msg) {
-    stream.write("["+new Date().toString()+"] - " + msg);
+    stream.write("["+new Date().toString()+"] - " + msg+"\n");
 }
 
 var planeData = []
@@ -28,10 +28,10 @@ wss.on('connection', function connection(ws) {
         planeData.push(d);
     });
     ws.on('close', function message(data) {
-        log("Client %s disconnected", ws._socket.address());
+        log("Client disconnected: "+ws._socket.address());
     });
 
-    log("Connection from %s", ws._socket.address());
+    log("Connection from "+ws._socket.address());
 });
 
 wss.broadcast = function broadcast(msg) {
@@ -44,6 +44,6 @@ setInterval(() => {
     performStca(planeData, (data) => {
         wss.broadcast(JSON.stringify(data));
         if (data.length > 0)
-            log("Found conflicts: ", data.join());
+            log("Found conflicts: "+data.join());
     });
 }, 1000)
