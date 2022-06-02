@@ -27,11 +27,12 @@ wss.on('connection', function connection(ws) {
         
         planeData.push(d);
     });
-    ws.on('close', function message(data) {
-        log("Client disconnected: "+ws._socket.address());
-    });
 
     log("Connection from "+ws._socket.address());
+});
+
+wss.on('close', function close() {
+    log("Client disconnected.");
 });
 
 wss.broadcast = function broadcast(msg) {
