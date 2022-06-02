@@ -57,7 +57,7 @@ test_data.pilots.forEach(function(element){
 
 // create an engine
 var engine = Engine.create({gravity: {x: 0, y: 0}});
-engine.timing.timeScale = 10;
+engine.timing.timeScale = 50;
 
 Common.setDecomp(require('poly-decomp'))
 

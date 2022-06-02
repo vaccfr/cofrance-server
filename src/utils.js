@@ -16,10 +16,11 @@ export const stcaParams = {
     alertDistanceUpper: nmToMeters(4.8),
     alertDistanceLower: nmToMeters(2.8),
     alertUpperLowerBoundary: 19500,
-    lookAhead: 30*2,
+    lookAhead: 60*2,
     speedThreshold: 70
 }
 
+// Not actual meters per second but more like meters per 100 miliseconds
 export const knotsToMs = function(speed) {
-    return speed*0.514444;
+    return speed*0.00514444;
 }
