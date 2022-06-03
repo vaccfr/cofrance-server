@@ -1,8 +1,8 @@
 import { WebSocketServer } from 'ws';
 import { performStca } from './stca.js';
-import { RotatingFileStream } from 'rotating-file-stream';
+import { createStream } from 'rotating-file-stream';
 
-const stream = new RotatingFileStream(function(){return "runtime.log"}, {
+const stream = createStream("runtime.log", {
   size: "10M", // rotate every 10 MegaBytes written
   interval: "1d", // rotate daily
   compress: "gzip" // compress rotated files
