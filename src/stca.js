@@ -29,7 +29,8 @@ export var performStca = function(planes, callback) {
         // Filter out targets as much as possible 
         //
         var useTarget = element.groundspeed >= stcaParams.speedThreshold && 
-                        geoTester.isEnclosedBy(stcaParams.inclusionPolyon);
+                        geoTester.isEnclosedBy(stcaParams.inclusionPolyon) &&
+                        !element.squawk.startsWith("70");
     
         if (useTarget) {
             var cart = new LatLon(element.lat, element.lon).toCartesian();
