@@ -54,7 +54,7 @@ export var performStca = function(planes, callback) {
     var engine = Matter.Engine.create({gravity: {x: 0, y: 0}});
 
     // Simulation runs at x1000 speed
-    engine.timing.timeScale = 1000;
+    engine.timing.timeScale = 100;
  
     // add all of the bodies to the world
     Matter.Composite.add(engine.world, arrOfAirplaneBodies);
