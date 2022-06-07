@@ -5,7 +5,7 @@ import { createVelocityVector, knotsToMs, nmToMeters } from "./utils.js";
 
 
  const stcaParams = {
-    alertDistanceUpper: nmToMeters(4.5),
+    alertDistanceUpper: nmToMeters(8.5),
     alertDistanceLower: nmToMeters(2.75),
     alertUpperLowerBoundary: 19500,
     alertVerticalThreshold: 4000,
