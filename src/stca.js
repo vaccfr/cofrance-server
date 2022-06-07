@@ -5,10 +5,10 @@ import { createVelocityVector, knotsToMs, nmToMeters } from "./utils.js";
 
 
  const stcaParams = {
-    alertDistanceUpper: nmToMeters(8.5),
+    alertDistanceUpper: nmToMeters(4.5),
     alertDistanceLower: nmToMeters(2.75),
     alertUpperLowerBoundary: 19500,
-    alertVerticalThreshold: 4000,
+    alertVerticalThreshold: 750,
     lookAhead: 60*2,
     speedThreshold: 70,
     inclusionPolyon: [ new LatLonNvectorSpherical(51.32717924,-9.71191406), new LatLonNvectorSpherical(50.35044453,8.91222954), 
