@@ -24,6 +24,8 @@ wss.on('connection', function connection(ws) {
         // If it exists in array we delete from it
         if (test !== undefined)
             planeData = planeData.filter(obj => obj.callsign !== d.callsign);
+
+        d.timestamp = Math.floor(Date.now() / 1000);
         
         planeData.push(d);
     });
@@ -42,6 +44,9 @@ wss.broadcast = function broadcast(msg) {
 };
 
 setInterval(() => {
+    // Clean up data that is too old (> 10 seconds old)
+    planeData = planeData.filter(obj => (Math.floor(Date.now()/1000)-obj.timestamp) < 10);
+
     performStca(planeData, (data) => {
         wss.broadcast(JSON.stringify(data));
         if (data.length > 0)
